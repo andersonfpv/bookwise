@@ -24,15 +24,15 @@
 
                 <div class="space-y-1">
 
-                    <a href="/livro?id=<?= $livro['id'] ?>" class="font-semibold hover:underline"><?= $livro['titulo'] ?></a>
-                    <div class="text-xs italic"><?= $livro['autor'] ?></div>
+                    <a href="/livro?id=<?= $livro->id ?>" class="font-semibold hover:underline"><?= $livro->titulo ?></a>
+                    <div class="text-xs italic"><?= $livro->autor ?></div>
                     <div class="text-xs italic">⭐⭐⭐⭐⭐(3 Avaliações)</div>
 
                 </div>
 
             </div>
 
-            <div class="text-sm mt-2"><?= $livro['descricao'] ?></div>
+            <div class="text-sm mt-2"><?= $livro->descricao ?></div>
 
         </div>
 
