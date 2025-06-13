@@ -32,6 +32,6 @@ class DB {
 
         $items = $query->fetchAll();
 
-        return array_map(fn($item) => Livro::make($item), $items[0]);
+        return array_map(fn($item) => Livro::make($item), $items)[0];
     }
 }
