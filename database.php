@@ -6,10 +6,21 @@ class DB {
 
     public function __construct($config)
     {
-        
-        $connectionString = $config['driver']. ':'. $config['database'];
+        $this->db = new PDO($this->getDsn($config));
+    }
 
-        $this -> db = new PDO($connectionString);
+    private function getDsn($config) {
+         $driver = $config['driver'];
+
+        unset($config['driver']);
+
+        $dsn = $driver .':'. http_build_query($config, '', ';');
+
+        if($driver == 'sqlite'){
+            $dsn = $driver . ':'. $config['database'];
+        }
+
+        return $dsn;
     }
 
     public function query($query, $class = null, $params = []){
