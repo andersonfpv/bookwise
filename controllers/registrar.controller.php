@@ -2,21 +2,67 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // $validacao = Validacao::validar([
+    $validacoes = [];
 
-    //     'nome' => ['required'],
-    //     'email' => ['required', 'email', 'confirmed', 'unique:usuarios'],
-    //     'senha' => ['required', 'min:8', 'max:30', 'strong']
+    $nome = $_POST['nome'];
 
-    // ], $_POST);
+    $email = $_POST['email'];
 
-    // if ($validacao->naoPassou('registrar')) {
+    $email_confirmacao = $_POST['email_confirmacao'];
 
-    //     header("Location: /login");
+    $senha = $_POST['senha'];
 
-    //     exit();
+    if (strlen($nome) == 0) {
 
-    // }
+        $validacoes[] = 'O nome é obrigatório.';
+
+    }
+
+    if (strlen($email) == 0) {
+
+        $validacoes[] = 'O email é obrigatório.';
+
+    }
+
+    if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+
+        $validacoes[] = 'O email é inválido.';
+
+    }
+
+    if ($email != $email_confirmacao) {
+
+        $validacoes[] = 'O email de confirmação está diferente.';
+
+    }
+
+    if (strlen($senha) == 0) {
+
+        $validacoes[] = 'A senha é obrigatória.';
+
+    }
+
+    if (strlen($senha) < 8 || strlen($senha) > 30) {
+
+        $validacoes[] = 'A senha precisa ter entre 8 e 30 caracteres.';
+
+    }
+
+    if (!str_contains($senha, '*')) {
+
+        $validacoes[] = 'A senha precisa um * nela.';
+
+    }
+
+    if (sizeof($validacoes) > 0) {
+
+        $_SESSION['validacoes'] = $validacoes;
+
+        header("Location: /login");
+
+        exit();
+
+    }
 
     $database->query(
 
@@ -25,19 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         params: [
             'nome' => $_POST['nome'],
             'email' => $_POST['email'],
-            'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT)
+            'senha' => $_POST['senha']
         ]
 
     );
 
-    // flash()->push('mensagem', 'Registrado com sucesso! 👍');
-
-    // header('location: /login');
+    header('location: /login?mensagem=Registrado com sucesso!');
 
     exit();
 
 };
-
-header("Location: /login?mensagem=Registrado com sucesso!");
-
-exit();
