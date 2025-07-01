@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         query: " select * from usuarios where email = :email and senha = :senha",
 
-        // class: Usuario::class,
+        class: Usuario::class,
 
         params: compact('email', 'senha')
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // }
 
         $_SESSION['auth'] = $usuario;
-        $_SESSION['menssagem'] = 'Seja bem vindo '. $usuario['nome'] . '!';
+        $_SESSION['menssagem'] = 'Seja bem vindo '. $usuario->nome . "!";
 
         // flash()->push('mensagem', "Seja bem-vindo " . $usuario->nome . "!");
 
