@@ -1,6 +1,5 @@
 <?php
 
-$mensagem = $_REQUEST['mensagem'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -8,20 +7,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $senha = $_POST['senha'];
 
-    // $validacao = Validacao::validar([
+    $validacao = Validacao::validar([
 
-    //     'email' => ['required', 'email'],
-    //     'senha' => ['required']
+        'email' => ['required', 'email'],
+        'senha' => ['required']
 
-    // ], $_POST);
+    ], $_POST);
 
-    // if ($validacao->naoPassou('login')) {
+    if ($validacao->naoPassou('login')) {
 
-    //     header("Location: /login");
+        header("Location: /login");
 
-    //     exit();
+        exit();
 
-    // }
+    }
 
     $usuario = $database->query(
 
@@ -50,9 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // }
 
         $_SESSION['auth'] = $usuario;
-        $_SESSION['menssagem'] = 'Seja bem vindo '. $usuario->nome . "!";
 
-        // flash()->push('mensagem', "Seja bem-vindo " . $usuario->nome . "!");
+        flash()->push('mensagem', "Seja bem-vindo " . $usuario->nome . "!");
 
         header("Location: /");
 
@@ -62,4 +60,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
-view('login', compact('mensagem'));
+view('login');

@@ -37,6 +37,16 @@
 
     <main class="mx-auto max-w-screen-lg space-y-6">
 
+        <?php if ($mensagem = flash()->get('mensagem')): ?>
+
+            <div class="border-green-800 bg-green-900 text-green-400 px-4 py-1 rounded-md border-2 text-sm font-bold">
+
+                <?= $mensagem ?>
+
+            </div>
+
+        <?php endif; ?>
+
         <?php require "views/{$view}.view.php" ?>
 
     </main>

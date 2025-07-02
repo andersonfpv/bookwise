@@ -40,7 +40,7 @@
 
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['validacoes']) && sizeof($_SESSION['validacoes'])): ?>
+            <?php if ($validacoes = flash()->get('validacoes')): ?>
 
                 <div class="border-red-800 bg-red-900 text-red-400 px-4 py-1 rounded-md border-2 text-sm font-bold">
 
@@ -48,7 +48,7 @@
 
                         <li>Deu ruim!!</li>
 
-                        <?php foreach ($_SESSION['validacoes'] as $validacao): ?>
+                        <?php foreach ($validacoes as $validacao): ?>
 
                             <li><?= $validacao ?></li>
 
