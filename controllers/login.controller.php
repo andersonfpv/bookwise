@@ -24,29 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $usuario = $database->query(
 
-        query: " select * from usuarios where email = :email and senha = :senha",
+        query: " select * from usuarios where email = :email",
 
         class: Usuario::class,
 
-        params: compact('email', 'senha')
+        params: compact('email')
 
     )->fetch();
 
     if ($usuario) {
 
-        // $senhaDoPost = $_POST['senha'];
+        if (! password_verify($_POST['senha'], $usuario->senha)) {
 
-        // $senhaDoBanco = $usuario->senha;
+            flash()->push('validacoes_login', ['Usuário ou senha estão incorretos!']);
 
-        // if (! password_verify($senhaDoPost, $senhaDoBanco)) {
+            header('Location: /login');
 
-        //     flash()->push('validacoes_login', ['Usuário ou senha estão incorretos!']);
+            exit();
 
-        //     header('Location: /login');
-
-        //     exit();
-
-        // }
+        }
 
         $_SESSION['auth'] = $usuario;
 
