@@ -2,10 +2,12 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-     $validacao = Validacao::validar([
+    $validacao = Validacao::validar([
+
         'nome' => ['required'],
-        'email' => ['required', 'email', 'confirmed'],
+        'email' => ['required', 'email', 'confirmed', 'unique:usuarios'],
         'senha' => ['required', 'min:8', 'max:30', 'strong']
+
     ], $_POST);
 
     if($validacao->naoPassou('registrar')) {
@@ -21,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         params: [
             'nome' => $_POST['nome'],
             'email' => $_POST['email'],
-            'senha' => $_POST['senha']
+            'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT)
         ]
 
     );
@@ -33,3 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 
 };
+
+header("Location: /login");
+
+exit();

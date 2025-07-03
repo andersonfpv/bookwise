@@ -80,31 +80,31 @@ class Validacao {
 
     }
 
-    // private function unique($tabela, $campo, $valor)
-    // {
+    private function unique($tabela, $campo, $valor)
+    {
 
-    //     if (strlen($valor) == 0) {
+        if (strlen($valor) == 0) {
 
-    //         return ;
+            return ;
 
-    //     }
+        }
 
-    //     $db = new Database(config('database'));
+        $db = new Database(config('database'));
 
-    //     $resultado = $db->query(
+        $resultado = $db->query(
 
-    //         query: "select * from $tabela where $campo = :valor",
-    //         params: ['valor' => $valor]
+            query: "select * from $tabela where $campo = :valor",
+            params: ['valor' => $valor]
 
-    //     )->fetch();
+        )->fetch();
 
-    //     if ($resultado) {
+        if ($resultado) {
 
-    //         $this->validacoes[] = "O $campo já está sendo usado.";
+            $this->validacoes[] = "O $campo já está sendo usado.";
 
-    //     }
+        }
 
-    // }
+    }
 
     private function min($min, $campo, $valor) {
 
