@@ -19,16 +19,27 @@
             <ul class="flex space-x-4 font-bold">
 
                 <li><a href="/" class="text-lime-500">Explorar</a></li>
-                <li><a href="/meus-livros" class="hover:underline">Meus Livros</a></li>
+
+                <?php if (auth()): ?>
+
+                    <li><a href="/meus-livros" class="hover:underline">Meus Livros</a></li>
+
+                <?php endif; ?>
 
             </ul>
 
             <ul>
-                <?php if (isset($_SESSION['auth'])): ?>
-                    <li><a href="/logout" class="hover:underline">Oi, <?=$_SESSION['auth']->nome?></a></li>
+
+                <?php if (auth()): ?>
+
+                    <li><a href="/logout">Oi, <?= auth()->nome ?></a></li>
+
                 <?php else: ?>
+
                     <li><a href="/login">Fazer Login</a></li>
+
                 <?php endif; ?>
+
             </ul>
 
         </nav>
@@ -47,7 +58,7 @@
 
         <?php endif; ?>
 
-        <?php require "views/{$view}.view.php" ?>
+        <?php require "../views/{$view}.view.php" ?>
 
     </main>
 
