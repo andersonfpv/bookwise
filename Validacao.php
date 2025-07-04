@@ -139,7 +139,6 @@ class Validacao {
 
     public function naoPassou($nomeCustomizado = null)
     {
-        $_SESSION['validacoes'] = $this->validacoes;
 
         $chave = 'validacoes';
 
